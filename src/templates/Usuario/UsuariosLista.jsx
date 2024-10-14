@@ -1,72 +1,66 @@
-import { useNavigate } from "react-router-dom"
-import Header from "../../components/Header/Header"
-import Sidebar from '../../components/Menu/Sidebar'
-import logo from '../../assets/images/home.png'
-import UsuarioService from "../../services/UsuarioService"
-import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import Sidebar from '../../components/Menu/Sidebar';
+import logo from '../../assets/images/home.png';
+import UsuarioService from "../../services/UsuarioService";
+import { useEffect, useState } from "react";
 
 const UsuariosLista = () => {
-
     const navigate = useNavigate();
-
-    const goTo = () => {
-        navigate('/usuarioeditar')
-    }
-
     const [usuarios, setUsuarios] = useState([]);
 
     useEffect(() => {
         UsuarioService.getAllUsuarios().then(
             (response) => {
-                const usuarios = response.data;
-                setUsuarios(usuarios);
-                console.log(usuarios);
+                const usuariosData = response.data;
+                setUsuarios(usuariosData);
+                console.log(usuariosData);
             }
         ).catch((error) => {
             console.log(error);
-        })
+        });
     }, []);
 
     const getId = (id) => {
-        navigate(`/usuarioeditar/` + id)
-    }
+        navigate(`/usuarioeditar/${id}`);
+    };
 
     return (
         <div className="d-flex">
             <Sidebar />
             <div className="p-3 w-100">
-                <Header
-                    goto={'/usuario'}
-                    title={'Lista de Usuários'}
-                    logo={logo}
-                />
-                <section className="m-2 p-2 shadow-lg">
+                <Header title={'Lista de Usuários'} logo={logo} />
+                <section className="m-2 p-4 shadow-lg bg-light rounded">
                     <div className="table-wrapper">
                         <table className="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">RM</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Acesso</th>
-                                    <th scope="col">Cadastro</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Abrir</th>
+                                    <th scope="col">Senha</th>
+                                    <th scope="col">Nível Acesso</th>
+                                    <th scope="col">Data Cadastro</th>
+                                    <th scope="col">Status Usuário</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {usuarios?.map((usuario) => (
-                                    <tr className="" key={usuario.id}>
+                                    <tr key={usuario.id}>
                                         <td>{usuario.id}</td>
+                                        <td>{usuario.rm}</td>
                                         <td>{usuario.nome}</td>
                                         <td>{usuario.email}</td>
+                                        <td>{usuario.senha}</td>
                                         <td>{usuario.nivelAcesso}</td>
                                         <td>{usuario.dataCadastro}</td>
                                         <td>{usuario.statusUsuario}</td>
                                         <td>
                                             <button onClick={() => getId(usuario.id)}
-                                                className="btn btn-sm btn-warning rounded">
-                                                <i className="bi bi-envelope-open"> Abrir</i>
+                                                className="btn btn-sm" 
+                                                style={{ backgroundColor: '#343a40', color: '#ffffff' }}>
+                                                <i className="bi bi-pencil"> Editar</i>
                                             </button>
                                         </td>
                                     </tr>
@@ -77,7 +71,7 @@ const UsuariosLista = () => {
                 </section>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default UsuariosLista
+export default UsuariosLista;
