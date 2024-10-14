@@ -5,29 +5,34 @@
   border-radius: 10px;
   background-color: #f8f9fa;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 10px;
+  padding-bottom: 20px; 
 }
 
-.sidebar a {
+.logo2 {
+  width: 150px; 
+  height: auto; 
+  margin: 15px auto; 
+  display: block; 
+}
+
+.nav {
+  margin-top: 20px;
+}
+
+.nav-link {
   display: block;
-  padding: 15px 15px;
+  padding: 15px;
   color: #333;
   text-decoration: none;
   transition: background-color 0.3s, transform 0.3s;
+  border-radius: 8px; 
 }
 
-.sidebar a:hover {
-  font-size: 16px;
+.nav-link:hover {
+  font-size: 16px; 
   font-weight: bold;
-  background-color: #495057;
-  color: #ffffff;
-  border-radius: 8px;
-  margin: 0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
-  transform: scale(1.02);
-}
-
-.logo {
-  width: 140px;
-  height: auto; 
-  margin: 15px auto;
+  background-color: #495057; 
+  color: #ffffff; 
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px; 
+  transform: scale(1.02); 
 }

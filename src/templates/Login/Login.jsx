@@ -1,53 +1,79 @@
-import { Link, useNavigate } from "react-router-dom";
-import logo from '../../assets/images/system-logo_128_x_128.png';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import logo from './logo.png';
 
 const Login = () => {
-
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const goto = () => {
-        navigate("/home");
-    }
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    const backto = () => {
-        navigate("/");
-    }
+        const regex = /^RM\d+$/; 
+        if (!regex.test(username)) {
+            setError('O username deve começar com "RM" seguido apenas por números.');
+            return;
+        }
 
+        const numberPart = username.slice(2);
+
+       
+        if (numberPart.startsWith('9')) {
+            navigate('/ambiente'); 
+        } else if (numberPart.startsWith('8')) {
+            navigate('/usuario'); 
+        } else {
+            setError('Username não reconhecido.');
+        }
+    };
+
+    const handlePasswordChange = (e) => {
+        const value = e.target.value;
+
+        if (/^\d*$/.test(value)) {
+            setPassword(value);
+            setError(''); 
+        }
+    };
 
     return (
-        <div className="container">
-            <form action="" className="login-form">
-                <div className="login-logo">
-                    <img src={logo} alt="logo" />
+        <div className="custom-background">
+            <div className="login-container">
+                <div className="login-card">
+                    <div className="logo-container">
+                        <img className="logo" src={logo} alt="Logo da Empresa" />
+                    </div>
+                    <form className="login-form" onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="RM do Usuário"
+                            required
+                            value={username}
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                                setError('');
+                            }}
+                        />
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
+                        <input
+                            type="password" 
+                            name="password"
+                            placeholder="Senha"
+                            required
+                            value={password}
+                            onChange={handlePasswordChange} 
+                        />
+                        <button type="submit">Entrar</button>
+                    </form>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label mb-0 fw-bold">Email:</label>
-                    <input type="email" id="email" className="form-control text-center fw-medium shadow" />
-                </div>
-                <div>
-                    <label htmlFor="password" className="form-label mb-0 fw-bold">Senha:</label>
-                    <input type="password" id="password" className="form-control text-center fw-medium shadow" />
-                </div>
-                <div className="d-flex flex-row-reverse mt-1">
-                    <p className="fw-bold fst-italic opacity-75 me-1">Esqueceu a senha?
-                        <Link to={'/forgotpass'}> Clique aqui.</Link>
-                    </p>
-                </div>
-                <div className="d-flex justify-content-center my-1 d-none" id="infos">
-                    <p className="fw-bold fst-italic text-danger">
-                        Dados Incorretos!!!
-                    </p>
-                </div>
-                <div className="d-flex justify-content-around mb-3 mt-2">
-                    <button className="btn btn-warning fw-medium shadow" type="button"
-                        onClick={backto}>Cancelar</button>
-                    <button className="btn btn-success fw-medium shadow" type="submit"
-                        onClick={goto} >Entrar</button>
-                </div>
-            </form>
+            </div>
         </div>
-    )
+    );
 }
 
-export default Login
+export default Login;
+
