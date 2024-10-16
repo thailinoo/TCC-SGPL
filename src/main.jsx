@@ -3,12 +3,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
-import AppRoutes from './components/AppRoutes.jsx';
+import AppRoutes2 from './components/AppRoutes2.jsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AppRoutes />
+      <AppRoutes2/>
     </BrowserRouter>
   </React.StrictMode>,
 )

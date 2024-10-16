@@ -1,0 +1,50 @@
+
+ @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+ 
+ * {
+     padding: 0;
+     margin: 0;
+     font-family: 'Outfit', sans-serif;
+ }
+ 
+.maria h1{
+    width: 90%;
+    margin-left: 10%;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+ 
+.card3 {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    border: 1px solid #d3d3d3;
+    width: 80vw;
+    padding: 15px;
+    border-radius: 9px;
+    box-shadow: 1px 1px 2px #000000;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    margin-top: 20px;
+}
+ 
+.card3 img {
+    width: 100%;
+    border-radius: 10px;
+}
+ 
+.card3 p {
+    margin: 0;
+    align-self: flex-start;
+    margin-left: 25px;
+}
+ 
+.card3 a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-left: 0;
+}
+ 

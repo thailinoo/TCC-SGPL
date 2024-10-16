@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+ 
+ * {
+     padding: 0;
+     margin: 0;
+     font-family: 'Outfit', sans-serif;
+ }
+ .thaila h1{
+    color: #000;
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-left: 10%;
+    margin-top: 60px; 
+}
+ 
+.card1 {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    border: 1px solid #d3d3d3;
+    width: 80vw;
+    padding: 15px;
+    border-radius: 9px;
+    box-shadow: 1px 1px 2px #000000;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    margin-top: 20px;
+}
+ 
+.card1 img {
+    width: 100%;
+    border-radius: 10px;
+}
+ 
+.card1 p {
+    margin: 0;
+    align-self: flex-start;
+    margin-left: 25px;
+}
+ 
+.card1 a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-left: 0;
+}
+ 
+
+ 
+.card1.vermelho {
+    background-color: rgba(254, 0, 0, 0.5);
+    
+}
+ 
+ 
+.card1.verde {
+    background-color: rgba(46, 222, 18, 0.5);
+}
+ 
+.card1.amarelo {
+    background-color: rgba(251, 255, 44, 0.5);
+}
+ 
+ 
+.card1 a {
+    color: #000000;
+    text-decoration: none;
+}
+ 
+.card1 a:hover {
+    color: #555555;
+}
+ 
+
+ 
+ 

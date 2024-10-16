@@ -22,7 +22,7 @@ const Login = () => {
 
        
         if (numberPart.startsWith('9')) {
-            navigate('/ambiente'); 
+            navigate('/Inicial'); 
         } else if (numberPart.startsWith('8')) {
             navigate('/usuario'); 
         } else {

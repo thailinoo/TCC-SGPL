@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Outfit', sans-serif;
+}
+
+.cont {
+    padding: 30px;
+    max-width: 1200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(88, 88, 88, 0.452);
+    text-align: left;
+    margin: 20px auto;
+}
+
+h1 {
+    color: #000;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #000;
+    font-size: 23px;
+    margin-bottom: 5px;
+}
+
+.det {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 4px 10px; 
+    border: 2px solid #c0c0c0;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #000;
+    margin-top: 20px;
+    cursor: pointer; 
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+select.emergencia {
+    background-color: rgba(254, 0, 0, 0.329);
+    color: rgb(0, 0, 0); 
+}
+
+select.urgente {
+    background-color: rgba(251, 255, 44, 0.363);
+    color: black; 
+}
+
+select.eletiva {
+    background-color: rgba(45, 222, 18, 0.329);
+    color: rgb(0, 0, 0); 
+}
