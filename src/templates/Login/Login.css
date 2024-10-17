@@ -17,9 +17,9 @@
   background-color: #fafafa;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 35px;
-  height: 70%;
-  width: 30%;
+  padding: 40px;
+  height: 53%;
+  width: 25%;
   border: 1px solid #808080d8;
 }
 
@@ -50,7 +50,7 @@
   box-sizing: border-box;
 }
 .logo {
-  max-width: 300%; 
+  max-width: 350%; 
   height: auto; 
-  width: 250px; 
+  width: 270px; 
 }
