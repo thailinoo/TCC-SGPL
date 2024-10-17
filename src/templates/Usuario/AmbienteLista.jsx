@@ -43,7 +43,6 @@ const AmbienteLista = () => {
                             <tbody>
                                 {ambientes?.map((ambiente) => (
                                     <tr key={ambiente.id}>
-                                        <td>{ambiente.id}</td>
                                         <td>{ambiente.nome}</td>
                                         <td>{ambiente.local}</td>
                                         <td>{ambiente.status}</td>

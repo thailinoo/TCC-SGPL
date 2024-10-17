@@ -3,21 +3,18 @@ import Header from "../../components/Header/Header"
 import Sidebar from '../../components/Menu/Sidebar'
 import { useEffect, useRef, useState } from "react"
 import logo from '../../assets/images/home.png'
-import UsuarioService from "../../services/UsuarioService"
+import AmbienteService from "../../services/AmbienteService"
 
-const UsuarioEditar = () => {
+const AmbienteEditar = () => {
 
     const objectValues = {
         id: null,
-        rm: "",
         nome: "",
-        email: "",
-        dataCadastro: "",
-        nivelAcesso: "",
-        statusUsuario: ""
+        localAmbiente: "",
+        statusAmbiente: ""
     };
     
-    const [usuario, setUsuario] = useState(objectValues); 
+    const [ambiente, setAmbiente] = useState(objectValues); 
 
     const { id } = useParams();
     const _dbRecords = useRef(true);
@@ -32,11 +29,11 @@ const UsuarioEditar = () => {
     }
 
     useEffect(() => {
-        UsuarioService.findById(id).then(
+        AmbienteService.findById(id).then(
             (response) => {
-                const usuario = response.data;
-                setUsuario(usuario);
-                console.log(usuario);
+                const ambiente = response.data;
+                setAmbiente(ambiente);
+                console.log(ambiente);
             }
         ).catch((error) => {
             console.log(error);
@@ -46,7 +43,7 @@ const UsuarioEditar = () => {
     const inativar = () => {
         setSuccessful(false);
 
-        UsuarioService.inativar(id).then(
+        AmbienteService.inativar(id).then(
             (response) => {
                 setMessage(response.data.message);
                 setSuccessful(true);
@@ -62,7 +59,7 @@ const UsuarioEditar = () => {
     const reativar = () => {
         setSuccessful(false);
 
-        UsuarioService.reativar(id).then(
+        AmbienteService.reativar(id).then(
             (response) => {
                 setMessage(response.data.message);
                 setSuccessful(true);
@@ -79,10 +76,10 @@ const UsuarioEditar = () => {
     return (
         <div className="d-flex">
             <Sidebar />
-            <div className="p-3 w-100">
+            <div className="p-4 w-100">
                 <Header
-                    goto={'/usuario'}
-                    title={'Editar Usuário'}
+                    goto={'/ambiente'}
+                    title={'Editar Ambiente'}
                     logo={logo}
                 />
                 <section className="m-2 p-2 shadow-lg">
@@ -90,36 +87,23 @@ const UsuarioEditar = () => {
                         <div className="col-md-2">
                             <label htmlFor="inputID" className="form-label">ID</label>
                             <input type="text" className="form-control" id="inputID" readOnly 
-                                defaultValue={usuario.id} />
+                                defaultValue={ambiente.id} />
                         </div>
                         <div className="col-md-5">
                             <label htmlFor="inputNome" className="form-label">Nome</label>
                             <input type="text" className="form-control" id="inputNome"  
-                                defaultValue={usuario.nome} />
+                                defaultValue={ambiente.nome} />
                         </div>
                         <div className="col-md-5">
-                            <label htmlFor="inputEmail4" className="form-label">Email</label>
-                            <input type="email" className="form-control" id="inputEmail4"  
-                                defaultValue={usuario.email} />
+                            <label htmlFor="inputLocal" className="form-label">Local</label>
+                            <input type="email" className="form-control" id="inputLocal"  
+                                defaultValue={ambiente.localAmbiente} />
                         </div>
 
                         <div className="col-md-4">
-                            <label htmlFor="inputData" className="form-label">Data de Cadastro</label>
-                            <input type="text" className="form-control" id="inputData" readOnly  
-                                defaultValue={usuario.dataCadastro} />
-                        </div>
-                        <div className="col-md-4">
                             <label htmlFor="inputStatus" className="form-label">Status</label>
                             <input type="text" className="form-control" id="inputStatus" readOnly  
-                                defaultValue={usuario.statusUsuario} />
-                        </div>
-                        <div className="col-md-4 my-3">
-                            <label htmlFor="inputAcesso" className="form-label mb-1 fw-bold">Acesso:</label>
-                            <select id="inputAcesso" className="form-select" readOnly
-                                    value={usuario.nivelAcesso} >
-                                <option value={'USER'}>USER</option>
-                                <option value={'ADMIN'}>ADMIN</option>
-                            </select>
+                                defaultValue={ambiente.statusAmbiente} />
                         </div>
                         
                         <div className="col-12 d-flex justify-content-between">
@@ -140,4 +124,4 @@ const UsuarioEditar = () => {
     )
 }
 
-export default UsuarioEditar
+export default AmbienteEditar

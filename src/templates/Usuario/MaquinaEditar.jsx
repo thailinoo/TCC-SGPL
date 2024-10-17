@@ -1,26 +1,21 @@
-import { Link, useParams } from "react-router-dom"
-import Header from "../../components/Header/Header"
-import Sidebar from '../../components/Menu/Sidebar'
-import { useEffect, useRef, useState } from "react"
-import logo from '../../assets/images/home.png'
-import UsuarioService from "../../services/UsuarioService"
+import { Link, useParams } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import Sidebar from '../../components/Menu/Sidebar';
+import { useEffect, useRef, useState } from "react";
+import logo from '../../assets/images/home.png';
+import MaquinaService from "../../services/MaquinaService";
 
-const UsuarioEditar = () => {
-
+const MaquinaEditar = () => {
     const objectValues = {
         id: null,
-        rm: "",
         nome: "",
-        email: "",
-        dataCadastro: "",
-        nivelAcesso: "",
-        statusUsuario: ""
+        patrimonio: "",
+        ambiente_id: "",
+        statusAmbiente: ""
     };
     
-    const [usuario, setUsuario] = useState(objectValues); 
-
+    const [maquina, setMaquina] = useState(objectValues); 
     const { id } = useParams();
-    const _dbRecords = useRef(true);
     const [formData, setFormData] = useState({});
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState();
@@ -29,107 +24,111 @@ const UsuarioEditar = () => {
         const name = e.target.name;
         const value = e.target.value;
         setFormData(formData => ({ ...formData, [name]: value }));
-    }
+    };
 
     useEffect(() => {
-        UsuarioService.findById(id).then(
+        MaquinaService.findById(id).then(
             (response) => {
-                const usuario = response.data;
-                setUsuario(usuario);
-                console.log(usuario);
+                const maquina = response.data;
+                setMaquina(maquina);
+                console.log(maquina);
             }
         ).catch((error) => {
             console.log(error);
-        })
-    }, []);
+        });
+    }, [id]);
 
     const inativar = () => {
         setSuccessful(false);
 
-        UsuarioService.inativar(id).then(
+        MaquinaService.inativar(id).then(
             (response) => {
                 setMessage(response.data.message);
                 setSuccessful(true);
                 window.location.reload();
-
             }, (error) => {
                 const message = error.response.data.message;
                 setMessage(message);
             }
-        )
-    }
+        );
+    };
 
     const reativar = () => {
         setSuccessful(false);
 
-        UsuarioService.reativar(id).then(
+        MaquinaService.reativar(id).then(
             (response) => {
                 setMessage(response.data.message);
                 setSuccessful(true);
                 window.location.reload();
-
             }, (error) => {
                 const message = error.response.data.message;
                 setMessage(message);
             }
-        )
-    }
+        );
+    };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        MaquinaService.alterarDados(id, formData).then(
+            (response) => {
+                setMessage(response.data.message);
+                setSuccessful(true);
+                window.location.reload();
+            }, (error) => {
+                const message = error.response.data.message;
+                setMessage(message);
+            }
+        );
+    };
 
     return (
         <div className="d-flex">
             <Sidebar />
             <div className="p-3 w-100">
                 <Header
-                    goto={'/usuario'}
-                    title={'Editar Usuário'}
+                    goto={'/maquina'}
+                    title={'Editar Máquina'}
                     logo={logo}
                 />
                 <section className="m-2 p-2 shadow-lg">
-                    <form className="row g-3">
+                    <form className="row g-3" onSubmit={handleSubmit}>
                         <div className="col-md-2">
                             <label htmlFor="inputID" className="form-label">ID</label>
                             <input type="text" className="form-control" id="inputID" readOnly 
-                                defaultValue={usuario.id} />
+                                defaultValue={maquina.id} />
                         </div>
                         <div className="col-md-5">
                             <label htmlFor="inputNome" className="form-label">Nome</label>
-                            <input type="text" className="form-control" id="inputNome"  
-                                defaultValue={usuario.nome} />
+                            <input type="text" className="form-control" id="inputNome" name="nome"  
+                                defaultValue={maquina.nome} onChange={handleChange} />
                         </div>
                         <div className="col-md-5">
-                            <label htmlFor="inputEmail4" className="form-label">Email</label>
-                            <input type="email" className="form-control" id="inputEmail4"  
-                                defaultValue={usuario.email} />
+                            <label htmlFor="inputPatrimonio" className="form-label">Patrimônio</label>
+                            <input type="text" className="form-control" id="inputPatrimonio" name="patrimonio"  
+                                defaultValue={maquina.patrimonio} onChange={handleChange} />
                         </div>
 
                         <div className="col-md-4">
-                            <label htmlFor="inputData" className="form-label">Data de Cadastro</label>
-                            <input type="text" className="form-control" id="inputData" readOnly  
-                                defaultValue={usuario.dataCadastro} />
+                            <label htmlFor="inputAmbiente" className="form-label">Ambiente</label>
+                            <input type="text" className="form-control" id="inputAmbiente" readOnly  
+                                defaultValue={maquina.ambiente_id} />
                         </div>
+
                         <div className="col-md-4">
                             <label htmlFor="inputStatus" className="form-label">Status</label>
                             <input type="text" className="form-control" id="inputStatus" readOnly  
-                                defaultValue={usuario.statusUsuario} />
-                        </div>
-                        <div className="col-md-4 my-3">
-                            <label htmlFor="inputAcesso" className="form-label mb-1 fw-bold">Acesso:</label>
-                            <select id="inputAcesso" className="form-select" readOnly
-                                    value={usuario.nivelAcesso} >
-                                <option value={'USER'}>USER</option>
-                                <option value={'ADMIN'}>ADMIN</option>
-                            </select>
+                                defaultValue={maquina.statusAmbiente} />
                         </div>
                         
                         <div className="col-12 d-flex justify-content-between">
                             <button type="submit" className="btn btn-primary">
                                 Gravar Alterações
                             </button>
-                            <button type="button" className="btn btn-warning" onClick={() => reativar()}>
+                            <button type="button" className="btn btn-warning" onClick={reativar}>
                                 Reativar / Resetar a Senha
                             </button>
-                            <button type="button" className="btn btn-danger" onClick={() => inativar()}>
+                            <button type="button" className="btn btn-danger" onClick={inativar}>
                                 Inativar Conta
                             </button>
                         </div>
@@ -137,7 +136,7 @@ const UsuarioEditar = () => {
                 </section>
             </div>
         </div>
-    )
+    );
 }
 
-export default UsuarioEditar
+export default MaquinaEditar;

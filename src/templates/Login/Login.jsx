@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import logo from './logo.png';
+import UsuarioService from '../../services/UsuarioService';
 
 const Login = () => {
-    const [username, setUsername] = useState('');
+    const [rm, setRm] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
@@ -12,21 +13,21 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const regex = /^RM\d+$/; 
-        if (!regex.test(username)) {
-            setError('O username deve começar com "RM" seguido apenas por números.');
+        const regex = /^RM\d+$/;
+        if (!regex.test(rm)) {
+            setError('O rm deve começar com "RM" seguido apenas por números.');
             return;
         }
 
-        const numberPart = username.slice(2);
+        const numberPart = rm.slice(2);
 
-       
+
         if (numberPart.startsWith('9')) {
-            navigate('/Inicial'); 
+            navigate('/Inicial');
         } else if (numberPart.startsWith('8')) {
-            navigate('/usuario'); 
+            navigate('/usuario');
         } else {
-            setError('Username não reconhecido.');
+            setError('Rm não reconhecido.');
         }
     };
 
@@ -35,9 +36,62 @@ const Login = () => {
 
         if (/^\d*$/.test(value)) {
             setPassword(value);
-            setError(''); 
+            setError('');
         }
     };
+
+
+    const goto = () => {
+        navigate("/home");
+    }
+
+    const backto = () => {
+        navigate("/");
+    }
+
+    const [formData, setFormData] = useState({});
+    const [message, setMessage] = useState();
+
+    const handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setFormData(formData => ({ ...formData, [name]: value }))
+    }
+
+    const editar = (id) => {
+        navigate(`/usuarioeditar/` + id)
+    }
+
+    const handleSubmiti = (e) => {
+        e.preventDefault();
+        setMessage("");
+
+        UsuarioService.signin(formData.rm, formData.password).then(
+            () => {
+                const userJson = localStorage.getItem("user");
+                const user = JSON.parse(userJson || '{}');
+                if (user.statusUsuario == 'ATIVO') {
+                    navigate("/usuario");
+                } else if (user.statusUsuario == 'TROCAR_SENHA') {
+                    navigate(`/newpass/` + user.id);
+                    //window.location.reload(); ordnael@email.com.br
+                }
+
+            },
+            (error) => {
+                const respMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+
+                setMessage(respMessage);
+            }
+
+        );
+    };
+
 
     return (
         <div className="custom-background">
@@ -46,26 +100,28 @@ const Login = () => {
                     <div className="logo-container">
                         <img className="logo" src={logo} alt="Logo da Empresa" />
                     </div>
-                    <form className="login-form" onSubmit={handleSubmit}>
+                    <form className="login-form" onSubmit={handleSubmiti}>
                         <input
                             type="text"
-                            name="username"
+                            name="rm"
                             placeholder="RM do Usuário"
                             required
-                            value={username}
+                            value={formData.rm || ""}
+                            onChange={handleChange}
+                            /*
                             onChange={(e) => {
-                                setUsername(e.target.value);
+                                setRm(e.target.value);
                                 setError('');
-                            }}
+                            }}*/
                         />
                         {error && <p style={{ color: 'red' }}>{error}</p>}
                         <input
-                            type="password" 
+                            type="password"
                             name="password"
                             placeholder="Senha"
                             required
-                            value={password}
-                            onChange={handlePasswordChange} 
+                            value={formData.password || ""}
+                            onChange={handleChange}
                         />
                         <button type="submit">Entrar</button>
                     </form>

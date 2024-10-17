@@ -24,6 +24,8 @@ import MaquinaNova from "../templates/Usuario/MaquinaNova";
 import Ambiente from "../templates/Usuario/Ambiente";
 import AmbienteNovo from "../templates/Usuario/AmbienteNovo";
 import AmbienteLista from "../templates/Usuario/AmbienteLista";
+import AmbienteEditar from "../templates/Usuario/AmbienteEditar.jsx";
+import MaquinaEditar from "../templates/Usuario/MaquinaEditar.jsx";
 
 const AppRoutes2 = () => {
   const location = useLocation();
@@ -71,9 +73,11 @@ const AppRoutes2 = () => {
         <Route path="/maquina" element={<Maquina />} />
         <Route path="/maquinaslista" element={<MaquinasLista />} />
         <Route path="/maquinanova" element={<MaquinaNova />} />
+        <Route path="/maquinaeditar" element={<MaquinaEditar/>} />
         <Route path="/ambiente" element={<Ambiente />} />
         <Route path="/ambientenovo" element={<AmbienteNovo />} />
         <Route path="/ambientelista" element={<AmbienteLista />} />
+        <Route path="/ambienteeditar" element={<AmbienteEditar />} />
       </Routes>
     </div>
   );
