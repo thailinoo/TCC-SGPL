@@ -29,10 +29,9 @@ const reativar = (id) => {
 
 const alterarDados = (id, data) => {
     const formData = new FormData();
-    formData.append('nome', data.nome);
-    formData.append('patrimonio', data.patrimonio);
-    formData.append('ambiente_id', data.ambiente_id);
-    formData.append('statusAmbiente', data.statusAmbiente);
+   Object.entries(data).forEach(([chave, valor]) => {
+    formData.append(chave, valor)
+   })
 
     return http.mainInstance.put(API_URL + `alterarDados/${id}`, formData);
 };

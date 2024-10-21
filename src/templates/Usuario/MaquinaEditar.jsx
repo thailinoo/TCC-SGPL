@@ -112,13 +112,13 @@ const MaquinaEditar = () => {
                         <div className="col-md-4">
                             <label htmlFor="inputAmbiente" className="form-label">Ambiente</label>
                             <input type="text" className="form-control" id="inputAmbiente" readOnly  
-                                defaultValue={maquina.ambiente_id} />
+                                defaultValue={maquina.ambiente?.nome} />
                         </div>
 
                         <div className="col-md-4">
                             <label htmlFor="inputStatus" className="form-label">Status</label>
                             <input type="text" className="form-control" id="inputStatus" readOnly  
-                                defaultValue={maquina.statusAmbiente} />
+                                defaultValue={maquina.statusMaquina} />
                         </div>
                         
                         <div className="col-12 d-flex justify-content-between">

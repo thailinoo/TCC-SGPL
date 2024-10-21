@@ -48,7 +48,7 @@ const MaquinasLista = () => {
                                         <td>{maquina.id}</td>
                                         <td>{maquina.nome}</td>
                                         <td>{maquina.patrimonio}</td>
-                                        <td>{maquina.ambiente}</td>
+                                        <td>{maquina.ambiente.nome}</td>
                                         <td>{maquina.statusMaquina}</td>
                                         <td>
                                             <button onClick={() => getId(maquina.id)}

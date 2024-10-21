@@ -19,7 +19,7 @@ const Login = () => {
             return;
         }
 
-        const numberPart = rm.slice(2);
+        //const numberPart = rm.slice(2);
 
 
         if (numberPart.startsWith('9')) {
@@ -71,7 +71,13 @@ const Login = () => {
                 const userJson = localStorage.getItem("user");
                 const user = JSON.parse(userJson || '{}');
                 if (user.statusUsuario == 'ATIVO') {
-                    navigate("/usuario");
+                    if (user.nivelAcesso == "ADMIN") {
+                        navigate("/usuario");
+                    }
+                    else {
+                        navigate('/Inicial');
+                    }
+                  
                 } else if (user.statusUsuario == 'TROCAR_SENHA') {
                     navigate(`/newpass/` + user.id);
                     //window.location.reload(); ordnael@email.com.br

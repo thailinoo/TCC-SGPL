@@ -72,6 +72,12 @@ const AmbienteEditar = () => {
         )
     }
 
+    function handleSubmit(e) {
+        e.preventDefault()
+
+        AmbienteService
+    }
+
 
     return (
         <div className="d-flex">
@@ -83,7 +89,7 @@ const AmbienteEditar = () => {
                     logo={logo}
                 />
                 <section className="m-2 p-2 shadow-lg">
-                    <form className="row g-3">
+                    <form onSubmit={handleSubmit} className="row g-3">
                         <div className="col-md-2">
                             <label htmlFor="inputID" className="form-label">ID</label>
                             <input type="text" className="form-control" id="inputID" readOnly 
@@ -92,17 +98,17 @@ const AmbienteEditar = () => {
                         <div className="col-md-5">
                             <label htmlFor="inputNome" className="form-label">Nome</label>
                             <input type="text" className="form-control" id="inputNome"  
-                                defaultValue={ambiente.nome} />
+                                defaultValue={ambiente.nome} onChange={handleChange} />
                         </div>
                         <div className="col-md-5">
                             <label htmlFor="inputLocal" className="form-label">Local</label>
-                            <input type="email" className="form-control" id="inputLocal"  
-                                defaultValue={ambiente.localAmbiente} />
+                            <input name="localAmbiente"  className="form-control" id="inputLocal"  
+                                onChange={handleChange} aultValue={ambiente.localAmbiente} />
                         </div>
 
                         <div className="col-md-4">
                             <label htmlFor="inputStatus" className="form-label">Status</label>
-                            <input type="text" className="form-control" id="inputStatus" readOnly  
+                            <input type="text" onChange={handleChange} className="form-control" id="inputStatus" readOnly  
                                 defaultValue={ambiente.statusAmbiente} />
                         </div>
                         

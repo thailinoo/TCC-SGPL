@@ -40,4 +40,6 @@ const AmbienteService = {
     reativar,
 }
 
+
+
 export default AmbienteService;

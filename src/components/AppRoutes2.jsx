@@ -73,11 +73,11 @@ const AppRoutes2 = () => {
         <Route path="/maquina" element={<Maquina />} />
         <Route path="/maquinaslista" element={<MaquinasLista />} />
         <Route path="/maquinanova" element={<MaquinaNova />} />
-        <Route path="/maquinaeditar" element={<MaquinaEditar/>} />
+        <Route path="/maquinaeditar/:id" element={<MaquinaEditar/>} />
         <Route path="/ambiente" element={<Ambiente />} />
         <Route path="/ambientenovo" element={<AmbienteNovo />} />
         <Route path="/ambientelista" element={<AmbienteLista />} />
-        <Route path="/ambienteeditar" element={<AmbienteEditar />} />
+        <Route path="/ambienteeditar/:id" element={<AmbienteEditar />} />
       </Routes>
     </div>
   );

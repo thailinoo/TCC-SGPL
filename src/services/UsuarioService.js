@@ -1,20 +1,17 @@
 import http from '../common/http-common';
-const API_URL = "usuario/";
+const API_URL = "/usuario/";
 
 const getAllUsuarios = () => {
-    return http.mainInstance.get(API_URL + 'findAll');
+    return http.mainInstance.get(API_URL + "findAll", { cache: 'no-cache', mode: 'no-cors'});
 };
 
 const findById = (id) => {
     return http.mainInstance.get(API_URL + `findById/${id}`);
 };
 
-const signin = async (email, senha) => {
+const signin = async (rm, senha) => {
     const response = await http.mainInstance
-        .post(API_URL + "signin", {
-            email,
-            senha,
-        });
+        .post(API_URL + `signin?rm=${rm}&senha=${senha}`);
     if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data));
     }
@@ -40,18 +37,19 @@ const create = data => {
 
 
 const inativar = (id) => {
-    return http.multipartInstance.put(API_URL + `inativar/${id}`);
+    return http.multipartInstance.put(API_URL + `inativar/${id}`, { cache: 'no-cache', mode: 'no-cors'});
 };
 
 const reativar = (id) => {
     return http.multipartInstance.put(API_URL + `reativar/${id}`);
 };
 
-const alterarSenha = (id, data) => {
+const alterarUsuario = (id, data) => {
     const formData = new FormData();
-    formData.append('senha', data.senha);
+    formData.append('nome', data.nome);
+    formData.append('email', data.email);
  
-    return http.mainInstance.put(API_URL + `alterarSenha/${id}`, formData);
+    return http.mainInstance.put(API_URL + `alterar/${id}`, formData);
 };
 
 
@@ -64,7 +62,7 @@ const UsuarioService = {
     create,
     inativar,
     reativar,
-    alterarSenha
+    alterarUsuario
 }
 
 export default UsuarioService;

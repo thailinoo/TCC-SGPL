@@ -21,7 +21,7 @@ const AmbienteLista = () => {
     }, []);
 
     const getId = (id) => {
-        navigate(`/ambientedetalhes/${id}`);
+        navigate(`/ambienteeditar/${id}`);
     };
 
     return (
@@ -44,13 +44,13 @@ const AmbienteLista = () => {
                                 {ambientes?.map((ambiente) => (
                                     <tr key={ambiente.id}>
                                         <td>{ambiente.nome}</td>
-                                        <td>{ambiente.local}</td>
-                                        <td>{ambiente.status}</td>
-                                        <td>
+                                        <td>{ambiente.localAmbiente}</td>
+                                        <td>{ambiente.statusAmbiente}</td>
+                                        {/* <td>
                                             <button onClick={() => getId(ambiente.id)} className="btn btn-sm" style={{ backgroundColor: '#343a40', color: '#ffffff' }}>
                                                 <i className="bi bi-eye"> Abrir</i>
                                             </button>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 ))}
                             </tbody>
