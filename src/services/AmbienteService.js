@@ -11,12 +11,22 @@ const findById = (id) => {
 
 const create = data => {
     const formData = new FormData();
-    formData.append('nome', data.nome);
-    formData.append('Local', data.localAmbiente);
-    formData.append('Status', data.statusAmbiente);
+    Object.entries(data).forEach(([chave, valor]) => {
+        formData.append(chave, valor)
+       })
 
     return http.mainInstance.post(API_URL + "create", formData);
 };
+
+const alterarDados = (id, data) => {
+    const formData = new FormData();
+   Object.entries(data).forEach(([chave, valor]) => {
+    formData.append(chave, valor)
+   })
+
+    return http.mainInstance.put(API_URL + `alterar/${id}`, formData);
+};
+
 
 const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user"));
@@ -38,6 +48,7 @@ const AmbienteService = {
     getCurrentUser,
     inativar,
     reativar,
+    alterarDados
 }
 
 

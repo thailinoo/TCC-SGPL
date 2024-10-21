@@ -11,6 +11,7 @@ const findById = (id) => {
 
 const create = (data) => {
     const formData = new FormData();
+
     formData.append('nome', data.nome);
     formData.append('patrimonio', data.patrimonio);
     formData.append('ambiente_id', data.ambiente_id);
@@ -33,7 +34,7 @@ const alterarDados = (id, data) => {
     formData.append(chave, valor)
    })
 
-    return http.mainInstance.put(API_URL + `alterarDados/${id}`, formData);
+    return http.mainInstance.put(API_URL + `alterar/${id}`, formData);
 };
 
 const MaquinaService = {

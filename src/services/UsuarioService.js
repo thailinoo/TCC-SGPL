@@ -28,9 +28,9 @@ const getCurrentUser = () => {
 
 const create = data => {
     const formData = new FormData();
-    formData.append('nome', data.nome);
-    formData.append('rm', data.rm);
-    formData.append('nivelAcesso', data.nivelAcesso);
+    Object.entries(data).forEach(([chave, valor]) => {
+        formData.append(chave, valor)
+       })
 
     return http.mainInstance.post(API_URL + "create", formData);
 };
