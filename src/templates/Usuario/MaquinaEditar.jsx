@@ -95,12 +95,12 @@ const MaquinaEditar = () => {
                     <form className="row g-3" onSubmit={handleSubmit}>
                         <div className="col-md-2">
                             <label htmlFor="inputID" className="form-label">ID</label>
-                            <input type="text" className="form-control" id="inputID" readOnly 
+                            <input type="text" name="id" className="form-control" id="inputID" readOnly 
                                 defaultValue={maquina.id} />
                         </div>
                         <div className="col-md-5">
                             <label htmlFor="inputNome" className="form-label">Nome</label>
-                            <input type="text" className="form-control" id="inputNome" name="nome"  
+                            <input type="text"  className="form-control" id="inputNome" name="nome"  
                                 defaultValue={maquina.nome} onChange={handleChange} />
                         </div>
                         <div className="col-md-5">
@@ -111,13 +111,13 @@ const MaquinaEditar = () => {
 
                         <div className="col-md-4">
                             <label htmlFor="inputAmbiente" className="form-label">Ambiente</label>
-                            <input type="text" className="form-control" id="inputAmbiente" readOnly  
+                            <input type="text"  name="ambiente"className="form-control" id="inputAmbiente" onChange={handleChange} readOnly  
                                 defaultValue={maquina.ambiente?.nome} />
                         </div>
 
                         <div className="col-md-4">
                             <label htmlFor="inputStatus" className="form-label">Status</label>
-                            <input type="text" className="form-control" id="inputStatus" readOnly  
+                            <input type="text" name="status" className="form-control" id="inputStatus" onChange={handleChange} readOnly  
                                 defaultValue={maquina.statusMaquina} />
                         </div>
                         
@@ -126,7 +126,7 @@ const MaquinaEditar = () => {
                                 Gravar Alterações
                             </button>
                             <button type="button" className="btn btn-warning" onClick={reativar}>
-                                Reativar / Resetar a Senha
+                                Reativar
                             </button>
                             <button type="button" className="btn btn-danger" onClick={inativar}>
                                 Inativar Conta

@@ -34,7 +34,6 @@ const AmbienteLista = () => {
                         <table className="table table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
                                     <th scope="col">Nome</th>
                                     <th scope="col">Local Ambiente</th>
                                     <th scope="col">Status Ambiente</th>

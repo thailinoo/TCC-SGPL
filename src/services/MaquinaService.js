@@ -14,8 +14,8 @@ const create = (data) => {
 
     formData.append('nome', data.nome);
     formData.append('patrimonio', data.patrimonio);
-    formData.append('ambiente_id', data.ambiente_id);
-    formData.append('statusAmbiente', data.statusAmbiente);
+    formData.append('ambienteId', data.ambienteId);
+    formData.append('statusMaquina', data.statusMaquina);
 
     return http.mainInstance.post(API_URL + "create", formData);
 };

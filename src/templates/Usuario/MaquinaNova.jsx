@@ -1,12 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Sidebar from '../../components/Menu/Sidebar';
-import logo from '../../assets/images/home.png';
 import { useState } from "react";
 import MaquinaService from "../../services/MaquinaService";
+import { useEffect } from "react";
+import AmbienteService from "../../services/AmbienteService";
 
 const MaquinaNova = () => {
+    const [ambientes, setAmbientes] = useState([])
     const [formData, setFormData] = useState({ nivelAcesso: "Professor", statusUsuario: "ATIVO" })
+
+
+    async function getAmbientes() {
+        const resposta = await AmbienteService.getAllAmbiente()
+        setAmbientes(resposta.data)
+    }
+
+    useEffect(() => {
+        getAmbientes()
+    }, [])
+
     const handleChange = (e) => {
         setFormData(formData => ({...formData, [e.target.name]: e.target.value}))
     }
@@ -15,9 +28,9 @@ const MaquinaNova = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
+        console.log(formData)
         MaquinaService.create(formData).then(dados => {
-            navigate("/maquinalista")
+            navigate("/maquinaslista")
         })
     }
     return (
@@ -41,13 +54,16 @@ const MaquinaNova = () => {
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputambiente_id" className="form-label">Ambiente ID</label>
-                            <input type="text"  onChange={handleChange} name="ambiente" className="form-control" id="inputambiente_id" />
+                            <select name="ambienteId" onChange={handleChange} id="">
+                                {ambientes.map(ambiente => <option value={ambiente.id}>{ambiente.nome}</option>)}
+                            </select>
+                            {/* <input type="text"  onChange={handleChange} name="ambienteId" className="form-control" id="inputambiente_id" /> */}
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputAcesso" className="form-label">Status Máquina</label>
                             <select id="inputAcesso"   onChange={handleChange} name="statusMaquina" className="form-select">
-                                <option value="Ativa" selected>Ativa</option>
-                                <option value="Inativa">Inativa</option>
+                                <option value="ATIVA" selected>ATIVA</option>
+                                <option value="INATIVA">INATIVA</option>
                             </select>
                         </div>
                         <div className="col-12">

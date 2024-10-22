@@ -142,7 +142,7 @@ const UsuarioEditar = () => {
                                 Gravar Alterações
                             </button>
                             <button type="button" className="btn btn-warning" onClick={() => reativar()}>
-                                Reativar / Resetar a Senha
+                                Reativar 
                             </button>
                             <button type="button" className="btn btn-danger" onClick={() => inativar()}>
                                 Inativar Conta

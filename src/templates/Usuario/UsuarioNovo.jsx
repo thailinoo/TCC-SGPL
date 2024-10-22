@@ -54,15 +54,15 @@ const UsuarioNovo = () => {
                         <div className="col-md-5">
                             <label htmlFor="inputstatusUsuario" className="form-label">Status Usuário</label>
                             <select id="inputstatusUsuario" onChange={handleChange} name="statusUsuario" className="form-select">
-                                <option value="ATIVO" selected>Ativo</option>
-                                <option value="INATIVO">Inativo</option>
+                                <option value="ATIVO" selected>ATIVO</option>
+                                <option value="INATIVO">INATIVO</option>
                             </select>
                         </div>
                         <div className="col-md-2">
                             <label htmlFor="inputAcesso" className="form-label">Nível Acesso</label>
                             <select id="inputAcesso"  onChange={handleChange} name="nivelAcesso" className="form-select">
-                                <option value="Professor" selected>Professor</option>
-                                <option value="Técnico">Técnico</option>
+                                <option value="Professor" selected>PROFESSOR</option>
+                                <option value="Técnico">TÉCNICO</option>
                             </select>
                         </div>
                         <div className="col-12">

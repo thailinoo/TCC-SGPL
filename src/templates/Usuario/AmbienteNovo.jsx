@@ -43,8 +43,8 @@ const AmbienteNovo = () => {
                         <div className="col-md-2">
                             <label htmlFor="inputStatus" className="form-label">Status Ambiente</label>
                             <select id="inputStatus" onChange={handleChange} name="statusAmbiente" className="form-select">
-                                <option value="Ativo" selected>Ativo</option>
-                                <option value="Inativo">Inativo</option>
+                                <option value="Ativo" selected>ATIVO</option>
+                                <option value="Inativo">INATIVO</option>
                             </select>
                         </div>
                         <div className="col-12">

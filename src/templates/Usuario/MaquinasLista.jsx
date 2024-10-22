@@ -39,7 +39,7 @@ const MaquinasLista = () => {
                                     <th scope="col">Nome</th>
                                     <th scope="col">Patrimônio</th>
                                     <th scope="col">Ambiente</th>
-                                    <th scope="col">Status Usuário</th>
+                                    <th scope="col">Status Maquina</th>
                                 </tr>
                             </thead>
                             <tbody>
