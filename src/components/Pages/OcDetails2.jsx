@@ -9,7 +9,7 @@ const Ocorrencia = () => {
       <p className="d">RM98334</p> 
       <div className="e">
         <p><strong>RM Professor :</strong> 987604</p>
-        <p><strong>Data :</strong> /09/2024 &nbsp;&nbsp;&nbsp; <strong>Período :</strong> Matutino</p> 
+        <p><strong>Data :</strong> 09/09/2024 &nbsp;&nbsp;&nbsp; <strong>Período :</strong> Matutino</p> 
         <p><strong>Laboratório :</strong> 3 &nbsp;&nbsp;&nbsp; <strong>Andar :</strong> 4 &nbsp;&nbsp;&nbsp; <strong>Máquina :</strong> 004563</p> 
       </div>
       <div>
