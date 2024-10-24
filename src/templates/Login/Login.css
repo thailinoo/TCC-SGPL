@@ -18,9 +18,11 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  height: 53%;
-  width: 25%;
+  max-height: 80%; /* Limita a altura máxima */
+  width: 90%; /* Ajusta a largura para telas pequenas */
+  max-width: 400px; /* Largura máxima para telas maiores */
   border: 1px solid #808080d8;
+  box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos na largura total */
 }
 
 .logo-container {
@@ -49,8 +51,31 @@
   width: 100%;
   box-sizing: border-box;
 }
+
 .logo {
-  max-width: 350%; 
+  max-width: 100%; /* Garante que a imagem não exceda a largura do contêiner */
   height: auto; 
-  width: 270px; 
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 20px; /* Reduz o padding em telas menores */
+    width: 90%; /* Mantém a largura em 90% */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 15px; /* Ajusta ainda mais para telas muito pequenas */
+  }
+
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    margin-bottom: 20px; /* Reduz a margem inferior */
+  }
+
+  .login-form button {
+    padding: 10px; /* Ajusta o padding do botão */
+  }
 }

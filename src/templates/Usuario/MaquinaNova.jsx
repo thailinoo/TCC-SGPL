@@ -55,17 +55,15 @@ const MaquinaNova = () => {
                         <div className="col-md-6">
                             <label htmlFor="inputambiente_id" className="form-label">Ambiente ID</label>
                             <select name="ambienteId" onChange={handleChange} id="">
-                                {ambientes.map(ambiente => <option value={ambiente.id}>{ambiente.nome}</option>)}
+                                {ambientes.map(
+                                    ambiente => <option value={ambiente.id} key={ambiente.id}>
+                                        {ambiente.nome}
+                                        </option>
+                                    )}
                             </select>
                             {/* <input type="text"  onChange={handleChange} name="ambienteId" className="form-control" id="inputambiente_id" /> */}
                         </div>
-                        <div className="col-md-6">
-                            <label htmlFor="inputAcesso" className="form-label">Status Máquina</label>
-                            <select id="inputAcesso"   onChange={handleChange} name="statusMaquina" className="form-select">
-                                <option value="ATIVA" selected>ATIVA</option>
-                                <option value="INATIVA">INATIVA</option>
-                            </select>
-                        </div>
+                      
                         <div className="col-12">
                             <button type="submit" className="btn" style={{ backgroundColor: '#343a40', color: '#ffffff' }}>
                                 Gravar

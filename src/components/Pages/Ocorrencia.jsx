@@ -133,7 +133,7 @@ const Ocorrencia = () => {
                         className={getSelectClass(formData.prioridade)} 
                     > 
                         <option value="Emergência">Emergência</option>
-                        <option value="Urgente">Urgente</option>
+                        <option value="Urgente">Urgência</option>
                         <option value="Eletiva">Eletiva</option>
                     </select>
                 </p>

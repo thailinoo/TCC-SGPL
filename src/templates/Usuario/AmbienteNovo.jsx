@@ -6,7 +6,7 @@ import { useState } from "react";
 import AmbienteService from "../../services/AmbienteService";
 
 const AmbienteNovo = () => {
-    const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState({ statusAmbiente: "ATIVO" })
     const handleChange = (e) => {
         setFormData(formData => ({...formData, [e.target.name]: e.target.value}))
     }
@@ -43,8 +43,8 @@ const AmbienteNovo = () => {
                         <div className="col-md-2">
                             <label htmlFor="inputStatus" className="form-label">Status Ambiente</label>
                             <select id="inputStatus" onChange={handleChange} name="statusAmbiente" className="form-select">
-                                <option value="Ativo" selected>ATIVO</option>
-                                <option value="Inativo">INATIVO</option>
+                                <option value="ATIVO" selected>ATIVO</option>
+                                <option value="INATIVO">INATIVO</option>
                             </select>
                         </div>
                         <div className="col-12">
