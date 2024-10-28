@@ -6,20 +6,54 @@ import { useState } from "react";
 import UsuarioService from "../../services/UsuarioService";
 
 const UsuarioNovo = () => {
-    const [formData, setFormData] = useState({ nivelAcesso: "Professor", statusUsuario: "ATIVO" })
-    const handleChange = (e) => {
-        setFormData(formData => ({...formData, [e.target.name]: e.target.value}))
-    }
+    const [formData, setFormData] = useState({ nivelAcesso: "Professor", statusUsuario: "ATIVO" });
+    const [errors, setErrors] = useState({});
 
-    const navigate = useNavigate()
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+
+
+        if (name === "rm") {
+            if (!/^\d{5}$/.test(value)) {
+                setErrors(prev => ({ ...prev, rm: 'RM deve conter exatamente 5 dígitos.' }));
+            } else {
+                setErrors(prev => ({ ...prev, rm: null }));
+            }
+        }
+
+     
+        if (name === "nome") {
+            if (!/^[a-zA-Z\s]*$/.test(value)) {
+                setErrors(prev => ({ ...prev, nome: 'Nome deve conter apenas letras.' }));
+            } else {
+                setErrors(prev => ({ ...prev, nome: null }));
+            }
+        }
+
+        if (name === "senha") {
+            if (!/^\d*$/.test(value)) {
+                setErrors(prev => ({ ...prev, senha: 'Senha deve conter apenas números.' }));
+            } else {
+                setErrors(prev => ({ ...prev, senha: null }));
+            }
+        }
+    };
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
+        if (errors.rm || errors.nome || errors.senha) {
+            return;
+        }
 
         UsuarioService.create(formData).then(dados => {
-            navigate("/usuarioslista")
-        })
-    }
+            navigate("/usuarioslista");
+        });
+    };
+
     return (
         <div className="d-flex">
             <Sidebar />
@@ -27,17 +61,15 @@ const UsuarioNovo = () => {
                 <Header title={'Novo Usuário'} logo={logo} />
                 <section className="m-2 p-4 shadow-lg rounded bg-light">
                     <form onSubmit={handleSubmit} className="row g-3">
-                        {/* <div className="col-md-5">
-                            <label htmlFor="inputId" className="form-label">ID</label>
-                            <input type="text" className="form-control" id="inputId" />
-                        </div> */}
                         <div className="col-md-5">
                             <label htmlFor="inputRM" className="form-label">RM</label>
                             <input type="text" onChange={handleChange} name="rm" className="form-control" id="inputRM" />
+                            {errors.rm && <div className="text-danger">{errors.rm}</div>}
                         </div>
                         <div className="col-md-5">
                             <label htmlFor="inputNome" className="form-label">Nome</label>
                             <input type="text" onChange={handleChange} name="nome" className="form-control" id="inputNome" />
+                            {errors.nome && <div className="text-danger">{errors.nome}</div>}
                         </div>
                         <div className="col-md-5">
                             <label htmlFor="inputEmail4" className="form-label">Email</label>
@@ -46,11 +78,8 @@ const UsuarioNovo = () => {
                         <div className="col-md-5">
                             <label htmlFor="inputSenha" className="form-label">Senha</label>
                             <input type="password" onChange={handleChange} name="senha" className="form-control" id="inputSenha" />
+                            {errors.senha && <div className="text-danger">{errors.senha}</div>}
                         </div>
-                        {/* <div className="col-md-5">
-                            <label htmlFor="inputdataCadastro" className="form-label">Data Cadastro</label>
-                            <input type="date" onChange={handleChange} name="" className="form-control" id="inputdataCadastro" />
-                        </div> */}
                         <div className="col-md-5">
                             <label htmlFor="inputstatusUsuario" className="form-label">Status Usuário</label>
                             <select id="inputstatusUsuario" onChange={handleChange} name="statusUsuario" className="form-select">
@@ -60,7 +89,7 @@ const UsuarioNovo = () => {
                         </div>
                         <div className="col-md-2">
                             <label htmlFor="inputAcesso" className="form-label">Nível Acesso</label>
-                            <select id="inputAcesso"  onChange={handleChange} name="nivelAcesso" className="form-select">
+                            <select id="inputAcesso" onChange={handleChange} name="nivelAcesso" className="form-select">
                                 <option value="Professor" selected>PROFESSOR</option>
                                 <option value="Técnico">TÉCNICO</option>
                             </select>
@@ -78,3 +107,5 @@ const UsuarioNovo = () => {
 }
 
 export default UsuarioNovo;
+
+

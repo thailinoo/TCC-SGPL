@@ -1,38 +1,60 @@
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Sidebar from '../../components/Menu/Sidebar';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MaquinaService from "../../services/MaquinaService";
-import { useEffect } from "react";
 import AmbienteService from "../../services/AmbienteService";
 
 const MaquinaNova = () => {
-    const [ambientes, setAmbientes] = useState([])
-    const [formData, setFormData] = useState({ nivelAcesso: "Professor", statusUsuario: "ATIVO" })
-
+    const [ambientes, setAmbientes] = useState([]);
+    const [formData, setFormData] = useState({ patrimonio: '', nome: '', ambienteId: '' });
+    const [errors, setErrors] = useState({});
 
     async function getAmbientes() {
-        const resposta = await AmbienteService.getAllAmbiente()
-        setAmbientes(resposta.data)
+        const resposta = await AmbienteService.getAllAmbiente();
+        setAmbientes(resposta.data);
     }
 
     useEffect(() => {
-        getAmbientes()
-    }, [])
+        getAmbientes();
+    }, []);
 
     const handleChange = (e) => {
-        setFormData(formData => ({...formData, [e.target.name]: e.target.value}))
-    }
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
 
-    const navigate = useNavigate()
+        if (name === "patrimonio") {
+            if (!/^\d*$/.test(value)) {
+                setErrors(prev => ({ ...prev, patrimonio: 'Patrimônio deve conter apenas números.' }));
+            } else {
+                setErrors(prev => ({ ...prev, patrimonio: null }));
+            }
+        }
+
+        if (name === "nome") {
+            if (!/^[a-zA-Z\s]*$/.test(value)) {
+                setErrors(prev => ({ ...prev, nome: 'Nome deve conter apenas letras.' }));
+            } else {
+                setErrors(prev => ({ ...prev, nome: null }));
+            }
+        }
+    };
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(formData)
+        e.preventDefault();
+
+        if (errors.patrimonio || errors.nome) {
+            return;
+        }
+
+        console.log(formData);
         MaquinaService.create(formData).then(dados => {
-            navigate("/maquinaslista")
-        })
-    }
+            navigate("/maquinaslista");
+        });
+    };
+
     return (
         <div className="d-flex">
             <Sidebar />
@@ -40,30 +62,38 @@ const MaquinaNova = () => {
                 <Header title={'Nova Máquina'} />
                 <section className="m-2 p-4 shadow-lg rounded bg-light">
                     <form onSubmit={handleSubmit} className="row g-3">
-                        {/* <div  className="col-md-6">
-                            <label htmlFor="inputId2" className="form-label">ID</label>
-                            <input type="text" className="form-control" id="inputId2" />
-                        </div> */}
                         <div className="col-md-6">
                             <label htmlFor="inputPatrimonio" className="form-label">Patrimônio</label>
-                            <input type="text" onChange={handleChange} name="patrimonio" className="form-control" id="inputPatrimonio" />
+                            <input
+                                type="text"
+                                onChange={handleChange}
+                                name="patrimonio"
+                                className="form-control"
+                                id="inputPatrimonio"
+                            />
+                            {errors.patrimonio && <div className="text-danger">{errors.patrimonio}</div>}
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputNome2" className="form-label">Nome</label>
-                            <input type="text"  onChange={handleChange} name="nome" className="form-control" id="inputNome2" />
+                            <input
+                                type="text"
+                                onChange={handleChange}
+                                name="nome"
+                                className="form-control"
+                                id="inputNome2"
+                            />
+                            {errors.nome && <div className="text-danger">{errors.nome}</div>}
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="inputambiente_id" className="form-label">Ambiente ID</label>
-                            <select name="ambienteId" onChange={handleChange} id="">
-                                {ambientes.map(
-                                    ambiente => <option value={ambiente.id} key={ambiente.id}>
+                            <select name="ambienteId" onChange={handleChange} className="form-select">
+                                {ambientes.map(ambiente => (
+                                    <option value={ambiente.id} key={ambiente.id}>
                                         {ambiente.nome}
-                                        </option>
-                                    )}
+                                    </option>
+                                ))}
                             </select>
-                            {/* <input type="text"  onChange={handleChange} name="ambienteId" className="form-control" id="inputambiente_id" /> */}
                         </div>
-                      
                         <div className="col-12">
                             <button type="submit" className="btn" style={{ backgroundColor: '#343a40', color: '#ffffff' }}>
                                 Gravar
@@ -77,4 +107,3 @@ const MaquinaNova = () => {
 }
 
 export default MaquinaNova;
-
